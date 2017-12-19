@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace QuestionApp.Data
+namespace QuestionApp.Models
 {
     public partial class Question
     {

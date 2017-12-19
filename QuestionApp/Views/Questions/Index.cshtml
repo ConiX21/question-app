@@ -1,0 +1,28 @@
+﻿@model IEnumerable<QuestionApp.Models.Question>
+
+@{
+    ViewData["Title"] = "Answers";
+}
+
+<h2>@ViewData["Title"]</h2>
+<form action="/" method="post">
+    <ol>
+        @foreach (var question in Model)
+        {
+            <li>
+                @Html.DisplayFor(modelItem => question.QuestionText)
+
+                <ul>
+                    @foreach (var answer in question.Answer)
+                    {
+                        var nameOfRadioGroup = "question_" + @question.IdQuestions;
+                        <li>
+                            <input type="radio" name="@nameOfRadioGroup" value="@answer.IdAnswer" /> @Html.DisplayFor(modelItem => answer.AnswerText)
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ol>
+    <button type="submit" class="btn btn-primary">Sned your test</button>
+</form>

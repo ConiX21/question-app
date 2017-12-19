@@ -29,6 +29,9 @@ namespace QuestionApp
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDbContext<questiondbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -59,6 +62,11 @@ namespace QuestionApp
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "areas",
+                 template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

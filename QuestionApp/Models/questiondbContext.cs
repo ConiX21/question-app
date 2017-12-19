@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace QuestionApp.Data
+namespace QuestionApp.Models
 {
     public partial class questiondbContext : DbContext
     {
@@ -11,11 +11,16 @@ namespace QuestionApp.Data
         public virtual DbSet<Questionnaire> Questionnaire { get; set; }
         public virtual DbSet<UserAnswer> UserAnswer { get; set; }
 
+        public questiondbContext(DbContextOptions<questiondbContext> options)
+                   : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=questiondb;Trusted_Connection=True;");
             }
         }

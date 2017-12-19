@@ -1,4 +1,4 @@
 ﻿# Scaffold database
 ```PowerShell
-Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=questiondb;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Data -Tables "Questionnaire", "Question", "Answer", "UserAnswer"
+Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=questiondb;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables "Questionnaire", "Question", "Answer", "UserAnswer"
 ```

@@ -1,0 +1,20 @@
+﻿@model IEnumerable<QuestionApp.Models.QuestionnaireViewModels.QuestionnaireViewModel>
+
+@{
+    ViewData["Title"] = "Questionnaires";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        
+            <a asp-action="Answer" class="list-group-item">
+                @Html.DisplayFor(modelItem => item.Questionnaire.Name)
+                <span class="badge">@Html.DisplayFor(modelItem => item.CountQuestions)</span>
+            </a>
+
+    }
+</div>

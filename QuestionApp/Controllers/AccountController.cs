@@ -65,7 +65,8 @@ namespace QuestionApp.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index","Questionnaires",null);
                 }
                 if (result.RequiresTwoFactor)
                 {
