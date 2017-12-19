@@ -1,0 +1,1 @@
+﻿BACKUP DATABASE QuestionDB  TO DISK = N'C:\Users\ngasq\Documents\Visual Studio 2017\Projects\question-app\QuestionApp\SQL_Scripts\BACKUP\questionDB.MDF'
