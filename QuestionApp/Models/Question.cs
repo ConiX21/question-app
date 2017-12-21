@@ -7,16 +7,16 @@ namespace QuestionApp.Models
     {
         public Question()
         {
-            Answer = new HashSet<Answer>();
-            UserAnswer = new HashSet<UserAnswer>();
+            Reponse = new HashSet<Reponse>();
+            UtilisateurReponse = new HashSet<UtilisateurReponse>();
         }
 
         public int IdQuestions { get; set; }
-        public string QuestionText { get; set; }
+        public string Text { get; set; }
         public int QuestionnaireIdQuestionnaire { get; set; }
 
         public Questionnaire QuestionnaireIdQuestionnaireNavigation { get; set; }
-        public ICollection<Answer> Answer { get; set; }
-        public ICollection<UserAnswer> UserAnswer { get; set; }
+        public ICollection<Reponse> Reponse { get; set; }
+        public ICollection<UtilisateurReponse> UtilisateurReponse { get; set; }
     }
 }

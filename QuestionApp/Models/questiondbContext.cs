@@ -6,13 +6,18 @@ namespace QuestionApp.Models
 {
     public partial class questiondbContext : DbContext
     {
-        public virtual DbSet<Answer> Answer { get; set; }
         public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<Questionnaire> Questionnaire { get; set; }
-        public virtual DbSet<UserAnswer> UserAnswer { get; set; }
+        public virtual DbSet<Reponse> Reponse { get; set; }
+        public virtual DbSet<UtilisateurReponse> UtilisateurReponse { get; set; }
+
+        public questiondbContext()
+        {
+
+        }
 
         public questiondbContext(DbContextOptions<questiondbContext> options)
-                   : base(options)
+           : base(options)
         {
         }
 
@@ -27,24 +32,6 @@ namespace QuestionApp.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Answer>(entity =>
-            {
-                entity.HasKey(e => e.IdAnswer);
-
-                entity.HasIndex(e => e.QuestionIdQuestions)
-                    .HasName("IX_FK_QuestionAnswer");
-
-                entity.Property(e => e.AnswerText)
-                    .HasMaxLength(300)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.QuestionIdQuestionsNavigation)
-                    .WithMany(p => p.Answer)
-                    .HasForeignKey(d => d.QuestionIdQuestions)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_QuestionAnswer");
-            });
-
             modelBuilder.Entity<Question>(entity =>
             {
                 entity.HasKey(e => e.IdQuestions);
@@ -52,7 +39,9 @@ namespace QuestionApp.Models
                 entity.HasIndex(e => e.QuestionnaireIdQuestionnaire)
                     .HasName("IX_FK_QuestionnaireQuestion");
 
-                entity.Property(e => e.QuestionText).IsUnicode(false);
+                entity.Property(e => e.QuestionnaireIdQuestionnaire).HasColumnName("Questionnaire_IdQuestionnaire");
+
+                entity.Property(e => e.Text).IsRequired();
 
                 entity.HasOne(d => d.QuestionnaireIdQuestionnaireNavigation)
                     .WithMany(p => p.Question)
@@ -65,37 +54,48 @@ namespace QuestionApp.Models
             {
                 entity.HasKey(e => e.IdQuestionnaire);
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.Text).IsRequired();
             });
 
-            modelBuilder.Entity<UserAnswer>(entity =>
+            modelBuilder.Entity<Reponse>(entity =>
             {
-                entity.HasKey(e => e.IdUserAnswer);
+                entity.HasKey(e => e.IdReponse);
+
+                entity.HasIndex(e => e.QuestionReponseReponseIdQuestions)
+                    .HasName("IX_FK_QuestionReponse");
+
+                entity.Property(e => e.QuestionReponseReponseIdQuestions).HasColumnName("QuestionReponse_Reponse_IdQuestions");
+
+                entity.Property(e => e.ValeurReponse).IsRequired();
+
+                entity.HasOne(d => d.QuestionReponseReponseIdQuestionsNavigation)
+                    .WithMany(p => p.Reponse)
+                    .HasForeignKey(d => d.QuestionReponseReponseIdQuestions)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_QuestionReponse");
+            });
+
+            modelBuilder.Entity<UtilisateurReponse>(entity =>
+            {
+                entity.HasKey(e => e.IdUtilistaeurReponse);
 
                 entity.HasIndex(e => e.AspNetUsersId)
-                    .HasName("IX_FK_AspNetUsersUserAnswer");
+                    .HasName("IX_FK_AspNetUsersUtilisateurReponse");
 
                 entity.HasIndex(e => e.QuestionIdQuestions)
-                    .HasName("IX_FK_UserAnswerQuestion");
+                    .HasName("IX_FK_QuestionUtilisateurReponse");
 
-                entity.HasIndex(e => e.QuestionnaireIdQuestionnaire)
-                    .HasName("IX_FK_UserAnswerQuestionnaire");
+                entity.Property(e => e.AspNetUsersId)
+                    .IsRequired()
+                    .HasColumnName("AspNetUsers_Id");
 
-                entity.Property(e => e.AspNetUsersId).IsRequired();
+                entity.Property(e => e.QuestionIdQuestions).HasColumnName("Question_IdQuestions");
 
                 entity.HasOne(d => d.QuestionIdQuestionsNavigation)
-                    .WithMany(p => p.UserAnswer)
+                    .WithMany(p => p.UtilisateurReponse)
                     .HasForeignKey(d => d.QuestionIdQuestions)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserAnswerQuestion");
-
-                entity.HasOne(d => d.QuestionnaireIdQuestionnaireNavigation)
-                    .WithMany(p => p.UserAnswer)
-                    .HasForeignKey(d => d.QuestionnaireIdQuestionnaire)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserAnswerQuestionnaire");
+                    .HasConstraintName("FK_QuestionUtilisateurReponse");
             });
         }
     }

@@ -8,13 +8,11 @@ namespace QuestionApp.Models
         public Questionnaire()
         {
             Question = new HashSet<Question>();
-            UserAnswer = new HashSet<UserAnswer>();
         }
 
         public int IdQuestionnaire { get; set; }
-        public string Name { get; set; }
+        public string Text { get; set; }
 
         public ICollection<Question> Question { get; set; }
-        public ICollection<UserAnswer> UserAnswer { get; set; }
     }
 }

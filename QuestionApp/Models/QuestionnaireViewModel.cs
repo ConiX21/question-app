@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using QuestionApp.Models;
 
-namespace QuestionApp.Models.QuestionnaireViewModels
+namespace QuestionApp.Models
 {
     public class QuestionnaireViewModel
     {
         public Questionnaire Questionnaire { get; set; }
         public int CountQuestions { get; set; }
+        
     }
 }

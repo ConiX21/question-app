@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuestionApp.Models;
-using QuestionApp.Models.QuestionnaireViewModels;
 
 namespace QuestionApp.Controllers
 {
@@ -22,13 +21,16 @@ namespace QuestionApp.Controllers
         }
 
         // GET: Questionnaires
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            
+
             var query = (from qs in _context.Questionnaire
                         join q in _context.Question on qs.IdQuestionnaire equals q.QuestionnaireIdQuestionnaire into questionsGroup
                         select new QuestionnaireViewModel { Questionnaire = qs, CountQuestions = questionsGroup.Count() }).ToListAsync();
 
+            if (id != null)
+                ViewBag.Message = "QCM déjà fait !";
+                    
             return View(await query);
         }
 

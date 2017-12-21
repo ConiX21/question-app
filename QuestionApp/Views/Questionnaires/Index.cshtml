@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuestionApp.Models.QuestionnaireViewModels.QuestionnaireViewModel>
+﻿@model IEnumerable<QuestionApp.Models.QuestionnaireViewModel>
 
 @{
     ViewData["Title"] = "Questionnaires";
@@ -6,15 +6,23 @@
 
 <h2>@ViewData["Title"]</h2>
 
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Warning!</strong>@ViewBag.Message
+    </div>
+}
+
 
 <div class="list-group">
     @foreach (var item in Model)
     {
-        
-            <a asp-action="Answer" class="list-group-item">
-                @Html.DisplayFor(modelItem => item.Questionnaire.Name)
-                <span class="badge">@Html.DisplayFor(modelItem => item.CountQuestions)</span>
-            </a>
+
+        <a asp-action="Index" asp-controller="Questions" asp-route-id="@item.Questionnaire.IdQuestionnaire" class="list-group-item">
+            @Html.DisplayFor(modelItem => item.Questionnaire.Text)
+            <span class="badge">@Html.DisplayFor(modelItem => item.CountQuestions)</span>
+        </a>
 
     }
 </div>
