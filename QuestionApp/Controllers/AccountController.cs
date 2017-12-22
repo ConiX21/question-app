@@ -221,8 +221,13 @@ namespace QuestionApp.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };//, LastName = model.LastName, FirstName = model.FirstName };
                 var result = await _userManager.CreateAsync(user, model.Password);
+
+                //await _userManager.AddClaimAsync(user, new Claim("FirstName", user.FirstName));
+                //await _userManager.AddClaimAsync(user, new Claim("LastName", user.LastName));
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

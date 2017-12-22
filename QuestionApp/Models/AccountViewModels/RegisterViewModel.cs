@@ -23,5 +23,15 @@ namespace QuestionApp.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        //[Required]
+        //[Display(Name = "Nom de stagaire")]
+        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.")]
+        //public string FirstName { get; set; }
+        //[Required]
+        //[Display(Name = "Prénom de stagaire")]
+        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.")]
+
+        //public string LastName { get; set; }
     }
 }
